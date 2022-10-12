@@ -20,8 +20,8 @@ public class EmployeeController {
     @PostMapping(path = "/get-employee",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<Employee> getEmployeeById(@RequestBody Long id) {
-        return employeeService.getEmployeeById(id);
+    public Mono<Employee> getEmployee(@RequestBody Employee employee) {
+        return employeeService.getEmployee(employee);
     }
 
     @PostMapping(path = "/save-employee",
