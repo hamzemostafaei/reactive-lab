@@ -1,27 +1,34 @@
 package com.hamze.reactivelabr2dbc.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import org.springframework.data.relational.core.mapping.Table;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Table(name = "t_employee")
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column("id")
+    private Integer id;
 
-    @Column
+    @Column("name")
     private String name;
+
+    @Column("salary")
+    private Double salary;
+
+    @Column("overtime")
+    private Double overtime;
+
+    @Column("overtime_salary")
+    private Double overtimeSalary;
+
 }
