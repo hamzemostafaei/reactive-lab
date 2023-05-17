@@ -1,52 +1,69 @@
 package com.hamze.reactivelabr2dbc.service.impl;
 
-import com.hamze.reactivelabr2dbc.model.Employee;
+import com.hamze.reactivelabr2dbc.model.EmployeeEntity;
 import com.hamze.reactivelabr2dbc.repository.IEmployeeRepo;
 import com.hamze.reactivelabr2dbc.service.IEmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EmployeeServiceImpl implements IEmployeeService {
 
     private final IEmployeeRepo employeeRepository;
 
-    public Mono<Employee> getEmployee(Employee employee) {
+    public Mono<EmployeeEntity> getEmployee(EmployeeEntity employeeEntity) {
         return employeeRepository.findOne(
-                Example.of(employee)
+                Example.of(employeeEntity)
         );
     }
 
     @Override
-    public Mono<List<Employee>> getEmployees() {
-        return employeeRepository.findAll().collectList();
-    }
-
-    public Mono<Employee> saveEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public Mono<EmployeeEntity> getEmployeeById(Integer id) {
+        return employeeRepository.findById(id);
     }
 
     @Override
-    public Mono<List<Employee>> saveEmployees(List<Employee> employees) {
-        return employeeRepository.saveAll(employees).collectList();
+    public Mono<List<EmployeeEntity>> getEmployees() {
+        return employeeRepository
+                .findAll()
+                .log()
+                .collectList()
+                .log();
+    }
+
+    public Mono<EmployeeEntity> saveEmployee(EmployeeEntity employeeEntity) {
+        return employeeRepository.save(employeeEntity);
     }
 
     @Override
-    public Mono<List<Employee>> findEmployeesBySalaryGreaterThan(Double salary) {
+    public Mono<List<EmployeeEntity>> saveEmployees(List<EmployeeEntity> employeeEntities) {
+        return employeeRepository.saveAll(employeeEntities).collectList();
+    }
+
+    @Override
+    public Mono<List<EmployeeEntity>> findEmployeesBySalaryGreaterThan(Double salary) {
         return employeeRepository.findEmployeesBySalaryGreaterThan(salary).collectList();
     }
 
     @Override
-    public Mono<List<Employee>> getEmployeeBySpecificSalary(Double salary) {
+    public Mono<List<EmployeeEntity>> getEmployeeBySpecificSalary(Double salary) {
         return employeeRepository.getEmployeeBySpecificSalary(salary).collectList();
     }
 
+    @Override
+    public Flux<EmployeeEntity> getAllEmployees(){
+        return employeeRepository
+                .findAll()
+                .log();
+    }
+
 }
+

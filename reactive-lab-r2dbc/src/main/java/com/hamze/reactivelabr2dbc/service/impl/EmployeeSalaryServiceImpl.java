@@ -1,6 +1,6 @@
 package com.hamze.reactivelabr2dbc.service.impl;
 
-import com.hamze.reactivelabr2dbc.model.Employee;
+import com.hamze.reactivelabr2dbc.model.EmployeeEntity;
 import com.hamze.reactivelabr2dbc.service.IEmployeeSalaryService;
 import com.hamze.reactivelabr2dbc.service.IEmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -25,23 +25,23 @@ public class EmployeeSalaryServiceImpl implements IEmployeeSalaryService {
                 return Mono.empty();
             }
 
-            for (Employee employee : employees) {
-                employee.setOvertimeSalary(employee.getOvertime() * employee.getSalary());
+            for (EmployeeEntity employeeEntity : employees) {
+                employeeEntity.setOvertimeSalary(employeeEntity.getOvertime() * employeeEntity.getSalary());
             }
 
-            Mono<List<Employee>> listMono = employeeService.saveEmployees(employees).log();
+            Mono<List<EmployeeEntity>> listMono = employeeService.saveEmployees(employees).log();
 
-            for (Employee employee : employees) {
-                if (employee.getId().equals(1)) {
-                    employee.setOvertime(1D);
-                    employeeService.saveEmployee(employee);
+            for (EmployeeEntity employeeEntity : employees) {
+                if (employeeEntity.getId().equals(1)) {
+                    employeeEntity.setOvertime(1D);
+                    employeeService.saveEmployee(employeeEntity);
                 }
             }
 
-            for (Employee employee : employees) {
-                if (employee.getId().equals(1)) {
-                    employee.setOvertime(1000D);
-                    employeeService.saveEmployee(employee);
+            for (EmployeeEntity employeeEntity : employees) {
+                if (employeeEntity.getId().equals(1)) {
+                    employeeEntity.setOvertime(1000D);
+                    employeeService.saveEmployee(employeeEntity);
                 }
             }
 

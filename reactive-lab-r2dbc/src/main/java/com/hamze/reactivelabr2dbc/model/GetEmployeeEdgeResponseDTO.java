@@ -1,4 +1,4 @@
 package com.hamze.reactivelabr2dbc.model;
 
-public class GetEmployeeEdgeResponseDTO extends ABaseEdgeResponseDTO<Employee> {
+public class GetEmployeeEdgeResponseDTO extends ABaseEdgeResponseDTO<EmployeeEntity> {
 }

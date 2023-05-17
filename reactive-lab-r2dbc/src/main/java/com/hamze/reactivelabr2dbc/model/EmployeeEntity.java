@@ -9,11 +9,11 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Table(name = "t_employee")
-public class Employee {
+public class EmployeeEntity {
 
     @Id
     @Column("id")
