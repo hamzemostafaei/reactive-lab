@@ -1,4 +1,4 @@
-package com.hamze.reactivelabr2dbc.model;
+package com.hamze.reactivelabr2dbc.domain.entity;
 
 
 import lombok.*;
@@ -12,8 +12,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_employee")
-public class EmployeeEntity {
+@Table(name = "employee")
+public class EmployeeEntity extends ABaseVersionedEntity<Integer> {
 
     @Id
     @Column("id")

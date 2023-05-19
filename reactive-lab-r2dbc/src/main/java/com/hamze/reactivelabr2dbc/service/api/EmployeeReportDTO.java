@@ -1,4 +1,4 @@
-package com.hamze.reactivelabr2dbc.model;
+package com.hamze.reactivelabr2dbc.service.api;
 
 
 import lombok.AllArgsConstructor;

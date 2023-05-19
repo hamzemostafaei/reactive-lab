@@ -1,6 +1,6 @@
 package com.hamze.reactivelabr2dbc.service.impl;
 
-import com.hamze.reactivelabr2dbc.model.EmployeeEntity;
+import com.hamze.reactivelabr2dbc.domain.entity.EmployeeEntity;
 import com.hamze.reactivelabr2dbc.service.IEmployeeSalaryService;
 import com.hamze.reactivelabr2dbc.service.IEmployeeService;
 import lombok.RequiredArgsConstructor;

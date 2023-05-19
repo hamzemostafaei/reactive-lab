@@ -1,6 +1,6 @@
 package com.hamze.reactivelabr2dbc.service;
 
-import com.hamze.reactivelabr2dbc.model.EmployeeEntity;
+import com.hamze.reactivelabr2dbc.domain.entity.EmployeeEntity;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -14,7 +14,7 @@
     <name>reactive-lab-r2dbc</name>
     <description>reactive-lab-r2dbc</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
