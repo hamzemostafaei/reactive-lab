@@ -13,7 +13,7 @@ public interface IEmployeeService {
 
 	Mono<EmployeeEntity> getEmployeeById(Integer id);
 
-	Mono<List<EmployeeEntity>> getEmployees();
+	Flux<EmployeeEntity> getEmployees();
 
 	Mono<EmployeeEntity> saveEmployee(EmployeeEntity employeeEntity);
 
@@ -24,4 +24,6 @@ public interface IEmployeeService {
 	Mono<List<EmployeeEntity>> getEmployeeBySpecificSalary(Double salary);
 
 	Flux<EmployeeEntity> getAllEmployees();
+
+	Flux<EmployeeEntity> getSelectedFields();
 }

@@ -31,11 +31,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public Mono<List<EmployeeEntity>> getEmployees() {
+    public Flux<EmployeeEntity> getEmployees() {
         return employeeRepository
                 .findAll()
-                .log()
-                .collectList()
                 .log();
     }
 
@@ -63,6 +61,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
         return employeeRepository
                 .findAll()
                 .log();
+    }
+
+    @Override
+    public Flux<EmployeeEntity> getSelectedFields(){
+        return employeeRepository.getSelectedFields();
     }
 
 }

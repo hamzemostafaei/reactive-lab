@@ -20,7 +20,7 @@ public class EmployeeSalaryServiceImpl implements IEmployeeSalaryService {
 
     public Mono<Void> calcSalary() {
 
-        return employeeService.getEmployees().flatMap(employees -> {
+        /*return employeeService.getEmployees().flatMap(employees -> {
             if (CollectionUtils.isEmpty(employees)) {
                 return Mono.empty();
             }
@@ -46,8 +46,9 @@ public class EmployeeSalaryServiceImpl implements IEmployeeSalaryService {
             }
 
             return listMono.flatMap(e -> Mono.empty());
-        });
+        });*/
 
+        return Mono.empty();
     }
 
 }

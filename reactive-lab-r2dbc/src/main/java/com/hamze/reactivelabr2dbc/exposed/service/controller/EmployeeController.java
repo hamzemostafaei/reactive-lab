@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 @RestController
@@ -27,7 +28,7 @@ public class EmployeeController {
         Flux<EmployeeEntity> fluxEmployees = employeeService
                 .getAllEmployees()
                 .log()
-                .filter(employee -> employee.getId().equals(employeeId))
+                .filter(employee -> Objects.equals(employee.getId(), employeeId))
                 .log();
 
         return fluxEmployees.next();
@@ -49,9 +50,12 @@ public class EmployeeController {
         return employeeService.saveEmployee(employeeEntity).log();
     }
 
-    @PostMapping(path = "/get-employees", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<List<EmployeeEntity>> getEmployees() {
-        return employeeService.getEmployees().log();
+    @PostMapping(path = "/getEmployees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<EmployeeEntity> getEmployees() {
+        return employeeService
+                .getEmployees()
+//                .filter(employee -> employee.getName().length() > 1)
+                .log();
     }
 
     @PostMapping(path = "/save-employees", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,12 +73,23 @@ public class EmployeeController {
 
     @GetMapping(path = "/getEmployees/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<EmployeeEntity> getEmployeesStream() {
+
+        return employeeService.getAllEmployees();
+
+    }
+
+    @GetMapping(path = "/getSelectedFields", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<EmployeeEntity> getSelectedFields() {
+
+        return employeeService.getSelectedFields();
+
+    }
+
+    @GetMapping(path = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Integer> numberStream() {
+
         return
-                Flux.<EmployeeEntity>generate(
-                                synchronousSink -> synchronousSink.next(
-                                        new EmployeeEntity(1, "hamze", 1D, 1D, 1D)
-                                )
-                        )
+                Flux.<Integer>generate(synchronousSink -> synchronousSink.next(1))
                         .log()
                         .delayElements(Duration.ofSeconds(1L));
 
