@@ -2,6 +2,7 @@ package com.hamze.reactivelabblocking.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,12 +10,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "CUSTOMER")
 public class CustomerEntity extends ABaseVersionedEntity {
 
     @Id
     @Basic
-    @Column(name = "CUSTOMER_ID", length = 10, unique = true)
+    @Column(name = "ID", length = 10, unique = true)
     private Integer customerId;
 
     @Basic

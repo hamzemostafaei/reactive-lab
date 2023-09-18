@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements ICustomerService {
     private final ICustomerRepository customerRepository;
 
     @Override
-    @Cacheable(value = "MapCacheManager", key = "#customerId")
+    @Cacheable(value = "bpms", key = "#customerId")
     public CustomerEntity findById(Integer customerId) {
 
         Optional<CustomerEntity> customerOptional = customerRepository.findById(customerId);
@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    @CachePut(value = "MapCacheManager", key = "#customer.customerId")
+//    @CachePut(value = "bpms", key = "#customer.customerId")
     public CustomerEntity save(CustomerEntity customer) {
 
         customer.setCustomerId(customer.getCustomerId());

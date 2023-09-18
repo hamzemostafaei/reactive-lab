@@ -8,15 +8,17 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.SynchronousSink;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @RestController
-@RequestMapping(value = "/reactive-lab")
 @RequiredArgsConstructor
+@RequestMapping(value = "/reactive-lab")
 public class EmployeeController {
 
     private final IEmployeeService employeeService;
@@ -89,7 +91,12 @@ public class EmployeeController {
     public Flux<Integer> numberStream() {
 
         return
-                Flux.<Integer>generate(synchronousSink -> synchronousSink.next(1))
+                Flux.<Integer>generate(new Consumer<SynchronousSink<Integer>>() {
+                            @Override
+                            public void accept(SynchronousSink<Integer> synchronousSink) {
+                                synchronousSink.next(1);
+                            }
+                        })
                         .log()
                         .delayElements(Duration.ofSeconds(1L));
 
