@@ -4,19 +4,23 @@ import com.hamze.reactivelabblocking.domain.entity.CustomerEntity;
 import com.hamze.reactivelabblocking.repository.api.ICustomerRepository;
 import com.hamze.reactivelabblocking.service.internal.api.ICustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service("CustomerService")
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl /*implements ICustomerService*/ {
 
     private final ICustomerRepository customerRepository;
 
-    @Override
+
+
+//    @Override
     @Cacheable(value = "bpms", key = "#customerId")
     public CustomerEntity findById(Integer customerId) {
 
@@ -25,7 +29,7 @@ public class CustomerServiceImpl implements ICustomerService {
         return customerOptional.orElse(null);
     }
 
-    @Override
+//    @Override
 //    @CachePut(value = "bpms", key = "#customer.customerId")
     public CustomerEntity save(CustomerEntity customer) {
 

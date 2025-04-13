@@ -14,29 +14,32 @@
         </encoder>
     </appender>
 
-    <appender name="JOB" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>[%X{JOB-ID}]-[%X{RQST-ID}]-${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>${CONSOLE_LOG_CHARSET}</charset>
-        </encoder>
-    </appender>
-
-    <logger name="com.oracle.database.r2dbc" additivity="false">
-        <level value="debug"/>
+    <logger name="io.lettuce.core" additivity="false">
+        <level value="info"/>
         <appender-ref ref="STDOUT"/>
-        <!--        <appender-ref ref="FILE"/>-->
+<!--        <appender-ref ref="FILE"/>-->
     </logger>
 
-    <logger name="org.springframework.web" additivity="false">
-        <level value="debug"/>
+    <logger name="org.springframework.data.redis.core" additivity="false">
+        <level value="info"/>
         <appender-ref ref="STDOUT"/>
-        <!--        <appender-ref ref="FILE"/>-->
+<!--        <appender-ref ref="FILE"/>-->
     </logger>
 
-    <logger name="reactor" additivity="false">
+   <!-- <logger name="org.springframework.web" additivity="false">
         <level value="debug"/>
         <appender-ref ref="STDOUT"/>
-        <!--        <appender-ref ref="FILE"/>-->
+        &lt;!&ndash;        <appender-ref ref="FILE"/>&ndash;&gt;
+    </logger>-->
+
+    <!--<logger name="org.hibernate.SQL_SLOW" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="SLOW_DA_FILE"/>
+    </logger>-->
+
+    <logger name="com.github.benmanes.caffeine.cache" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="STDOUT"/>
     </logger>
 
     <root level="info">

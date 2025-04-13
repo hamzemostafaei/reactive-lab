@@ -7,18 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-
 @RestController
-@RequestMapping(value = "/reactive-lab")
+@RequestMapping(value = "/reactive-lab", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EchoController {
 
-    @PostMapping(path = "/echo",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/echo")
     public Mono<String> echo(@RequestBody String inputData) {
-        return Mono.delay(Duration.of(1, ChronoUnit.SECONDS))
-                .map(a -> inputData);
+        return Mono.just(inputData);
     }
 }

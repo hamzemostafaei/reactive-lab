@@ -17,7 +17,6 @@
         <module>../reactive-lab-blocking</module>
         <module>../reactive-lab-echo</module>
         <module>../reactive-lab-none-blocking</module>
-        <module>../reactive-lab-r2dbc</module>
     </modules>
 
 </project>

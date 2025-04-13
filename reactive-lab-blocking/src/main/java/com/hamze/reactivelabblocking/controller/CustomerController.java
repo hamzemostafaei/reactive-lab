@@ -4,59 +4,42 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.hamze.reactivelabblocking.domain.entity.CustomerEntity;
 import com.hamze.reactivelabblocking.repository.api.ICustomerRepository;
 import com.hamze.reactivelabblocking.service.internal.api.ICustomerService;
+import com.hamze.reactivelabblocking.service.internal.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @RestController
-@RequestMapping("/reactive-lab/rest/customer")
 @RequiredArgsConstructor
+@RequestMapping("/reactive-lab/rest/customer")
 public class CustomerController {
 
-    private final ICustomerService customerService;
-
+    private final CustomerServiceImpl customerService;
     private final ICustomerRepository customerRepository;
+    private final CacheManager cacheManager;
 
-    @Autowired
-    private CacheManager cacheManager;
-
-    @PostMapping(path = "/create")
-    public ResponseEntity<CustomerEntity> createCustomer(@RequestBody Map<String, Object> requestBody) {
-
-        CustomerEntity customer = new CustomerEntity();
-        customer.setCustomerId((Integer) requestBody.get("customerId"));
-        customer.setFirstName((String) requestBody.get("firstName"));
-        customer.setLastName((String) requestBody.get("lastName"));
-        customer.setNationalId((String) requestBody.get("nationalId"));
-
-        return ResponseEntity.ok(customerService.save(customer));
-    }
-
-    @PostMapping(path = "/update")
-    public ResponseEntity<CustomerEntity> updateCustomer(@RequestBody Map<String, Object> requestBody) {
-
-        CustomerEntity customer = customerService.findById((Integer) requestBody.get("customerId"));
-
-        customer.setCustomerId((Integer) requestBody.get("customerId"));
-        customer.setFirstName((String) requestBody.get("firstName"));
-        customer.setLastName((String) requestBody.get("lastName"));
-        customer.setNationalId((String) requestBody.get("nationalId"));
-
-        return ResponseEntity.ok(customerService.save(customer));
-    }
+    private final ApplicationContext applicationContext;
 
     @PostMapping(path = "/get")
     public ResponseEntity<CustomerEntity> getCustomer(@RequestBody Map<String, Object> requestBody) {
 
-//        CustomerEntity customer = customerService.findById((Integer) requestBody.get("customerId"));
-        CustomerEntity customer = findById((Integer) requestBody.get("customerId"));
+        log.info("*************************************");
+//        ICustomerService iCustomerService = applicationContext.getBean(ICustomerService.class);
+//        log.info(iCustomerService.getClass().getName());
+        log.info(customerService.getClass().getName());
+        log.info("*************************************");
+
+        CustomerEntity customer = customerService.findById((Integer) requestBody.get("customerId"));
+//        CustomerEntity customer = findById((Integer) requestBody.get("customerId"));
 
         return ResponseEntity.ok(customer);
 
